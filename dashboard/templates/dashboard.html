@@ -1,1 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>iOSL-ogger2 Dashboard</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 40px;
+            background-color: #f8f8f8;
+        }
+        h1 {
+            color: #222;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background-color: white;
+        }
+        th, td {
+            border: 1px solid #ccc;
+            padding: 10px;
+            text-align: left;
+        }
+        th {
+            background-color: #333;
+            color: white;
+        }
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+        .btn-container {
+            margin-top: 20px;
+        }
+        .btn {
+            padding: 10px 20px;
+            background-color: crimson;
+            color: white;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+        .btn:hover {
+            background-color: darkred;
+        }
+    </style>
+</head>
+<body>
+    <h1>iOS-Logger2 Dashboard</h1>
+    <div class="btn-container">
+        <form method="POST" action="/clear">
+            <button class="btn" type="submit">Clear Logs</button>
+        </form>
+    </div>
+    <table>
+        <thead>
+            <tr>
+                <th>Time</th>
+                <th>Client IP</th>
+                <th>Header Keystroke</th>
+                <th>Body Keystroke</th>
+                <th>Location</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for entry in logs %}
+            <tr>
+                <td>{{ entry.timestamp }}</td>
+                <td>{{ entry.client_ip }}</td>
+                <td>{{ entry.header }}</td>
+                <td>{{ entry.body }}</td>
+                <td>
+                    {% if entry.location %}
+                        Lat: {{ entry.location.latitude }}<br>
+                        Lon: {{ entry.location.longitude }}
+                    {% else %}
+                        —
+                    {% endif %}
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
 
+    <p style="text-align: center; margin-top: 40px; color: #555;">Developed by: Abdulrahman Al-Hakami</p>
+    <p style="text-align: center; margin-top: 40px; color: #555;">GitHub : https://github.com/AbdulrahmanALHakami</p>
+    <p style="text-align: center; margin-top: 40px; color: #555;">linkedin : https://www.linkedin.com/in/abdulrahmanalhakami/</p>
+</body>
+</html>
